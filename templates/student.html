@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 style="margin-top:0;">Student Chat</h2>
+<p class="muted">Ask questions against a specific Subject + Topic that’s already ingested.</p>
+
+<form action="/ask" method="post" class="row" style="margin-top:16px;">
+  <div>
+    <label>Subject</label>
+    <input type="text" name="subject" placeholder="Physics" value="{{ subject or '' }}" required />
+  </div>
+  <div>
+    <label>Topic</label>
+    <input type="text" name="topic" placeholder="Thermodynamics" value="{{ topic or '' }}" required />
+  </div>
+  <div>
+    <label>Your Question</label>
+    <textarea name="question" rows="4" placeholder="Explain the first law of thermodynamics" required>{{ question or '' }}</textarea>
+  </div>
+  <div>
+    <label>Top-K Passages</label>
+    <select name="k">
+      <option>3</option><option>5</option><option>8</option>
+    </select>
+  </div>
+  <div>
+    <button type="submit">Ask</button>
+  </div>
+</form>
+
+{% if answer %}
+  <h3 style="margin-top:24px;">Answer</h3>
+  <pre>{{ answer }}</pre>
+{% endif %}
+{% endblock %}

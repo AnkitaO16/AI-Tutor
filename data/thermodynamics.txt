@@ -1,0 +1,3 @@
+Thermodynamics is the branch of physics that deals with the relationships between heat and other forms of energy.
+The first law of thermodynamics states that energy cannot be created or destroyed, only transferred or converted from one form to another.
+The second law of thermodynamics states that the total entropy of an isolated system can never decrease over time.

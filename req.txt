@@ -1,0 +1,53 @@
+Example n8n Setup
+1. Webhook Node (Teacher Upload)
+
+Method: POST
+
+URL: http://localhost:5678/webhook/teacher-upload
+
+This will accept fields:
+
+subject
+
+topic
+
+file (multipart/form-data)
+
+2. HTTP Request Node → Ingest Service
+
+Method: POST
+
+URL: http://host.docker.internal:9002/ingest (use host.docker.internal if n8n is running in Docker)
+
+Send body: Pass through subject, topic, file from webhook.
+
+3. Notify Teacher
+
+Email or Slack node:
+“✅ Ingestion complete for {{subject}} → {{topic}}. Stored {{chunks}} chunks in ChromaDB.”
+
+📂 Data Organization in Chroma
+
+Each subject/topic pair = separate collection:
+
+physics_thermodynamics
+
+math_algebra
+
+history_ww2
+
+Each collection has nodes like:
+
+{
+  "id": "uuid-123",
+  "text": "The first law of thermodynamics states...",
+  "metadata": {
+    "subject": "Physics",
+    "topic": "Thermodynamics",
+    "filename": "thermodynamics.txt"
+  }
+}
+
+
+✅ With this, your teacher → n8n → ingestion service → ChromaDB pipeline is working.
+Next step, we’ll add the /ask endpoint (FastAPI RAG) for students to query.

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 style="margin-top:0;">Teacher Upload & Ingest</h2>
+<p class="muted">Upload a <strong>.txt</strong> file, pick a Subject + Topic. We’ll chunk, embed (BAAI/bge-small-en-v1.5) and store in ChromaDB.</p>
+
+<form action="/ingest" method="post" enctype="multipart/form-data" class="row" style="margin-top:16px;">
+  <div>
+    <label>Subject</label>
+    <input type="text" name="subject" placeholder="Physics" required />
+  </div>
+  <div>
+    <label>Topic</label>
+    <input type="text" name="topic" placeholder="Thermodynamics" required />
+  </div>
+  <div>
+    <label>.txt File</label>
+    <input type="file" name="file" accept=".txt" required />
+  </div>
+  <div>
+    <button type="submit">Upload & Ingest</button>
+  </div>
+</form>
+
+{% if msg %}
+  <p style="margin-top:16px;">
+    <span class="pill {{ 'ok' if ok else 'err' }}">{{ msg }}</span>
+  </p>
+{% endif %}
+{% endblock %}
